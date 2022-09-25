@@ -1,2 +1,7 @@
-package commands;public class AverageOfNumberOfParticipantsCommand {
+package commands;
+
+public class AverageOfNumberOfParticipantsCommand implements Command {
+    public void execute() {
+
+    }
 }

@@ -8,12 +8,14 @@ public class MusicBandCollection {
 
     public static MusicBandCollection getInstance(String fileName){
         if (instance == null){
-            parseXML(fileName);
             instance = new MusicBandCollection();
+            instance.parseXML(fileName);
         }
         return instance;
     }
 
-    private static void parseXML(String fileName){}
+    private void parseXML(String fileName){
+
+    }
 
 }

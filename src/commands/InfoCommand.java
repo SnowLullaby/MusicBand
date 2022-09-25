@@ -1,2 +1,7 @@
-package commands;public class InfoCommand {
+package commands;
+
+public class InfoCommand implements Command {
+    public void execute() {
+
+    }
 }

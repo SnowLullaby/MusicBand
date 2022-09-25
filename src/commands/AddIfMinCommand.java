@@ -1,2 +1,7 @@
-package commands;public class AddIfMinCommand {
+package commands;
+
+public class AddIfMinCommand implements Command {
+    public void execute() {
+
+    }
 }

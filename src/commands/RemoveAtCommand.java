@@ -1,2 +1,7 @@
-package commands;public class RemoveAtCommand {
+package commands;
+
+public class RemoveAtCommand implements Command {
+    public void execute() {
+
+    }
 }

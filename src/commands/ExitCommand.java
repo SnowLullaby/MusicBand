@@ -5,8 +5,4 @@ public class ExitCommand implements Command {
         System.out.println("Благодарю за использование!");
         System.exit(0);
     }
-
-    public String getDesc() {
-        return "завершает выполнеие программы (без сохранения в файл)";
-    }
 }
