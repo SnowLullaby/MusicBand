@@ -1,19 +1,33 @@
-package models;
+package parsers;
 
+import models.*;
 import javax.xml.bind.*;
 import java.io.*;
+import java.util.Vector;
 
-public class MusicBandCollectionParser {
-    public static MusicBandCollectionStructure parseXML(String fileName) {
-        var file = new File(fileName);
-        var reader = new InputStreamReader(chekIfFileExist(file));
-        return parsing(reader);
+public class Parser implements ISaveLoad {
+    private final String fileName;
+
+    public Parser(String fileName) {
+        this.fileName = fileName;
     }
 
-    private static MusicBandCollectionStructure parsing(InputStreamReader reader) {
+    public Vector<MusicBand> parse() {
+        var file = new File(fileName);
+        var reader = new InputStreamReader(getFileStream(file));
+        var result = parsing(reader);
         try {
-            var context = JAXBContext.newInstance(MusicBandCollectionStructure.class);
-            return (MusicBandCollectionStructure) context.createUnmarshaller().unmarshal(reader);
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Ошибика доступа к файлу");
+        }
+        return result;
+    }
+
+    private static Vector<MusicBand> parsing(InputStreamReader reader) {
+        try {
+            var context = JAXBContext.newInstance(MusicBandCollectionStructureXML.class);
+            return ((MusicBandCollectionStructureXML) context.createUnmarshaller().unmarshal(reader)).collection;
         } catch (JAXBException e) {
             System.out.println("Ошибка при парсинге XML файла. Текст системной ошибки:");
             System.out.println(e.getMessage());
@@ -23,46 +37,35 @@ public class MusicBandCollectionParser {
         return null;
     }
 
-    private static FileInputStream chekIfFileExist(File file) {
-        try{
+    private static FileInputStream getFileStream(File file) {
+        try {
             System.out.println(file);
             return new FileInputStream(file);
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Файл не существует или у Вас нет прав для доступа!");
             System.exit(0);
         }
         return null;
     }
 
-    public static void saveXML(MusicBandCollectionStructure data) {
+    public void save(Vector<MusicBand> collection) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(MusicBandCollection.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(MusicBandCollectionStructureXML.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
+            System.out.println("я тут был");
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-            //Marshal the employees list in console
-            jaxbMarshaller.marshal(bands, System.out);
-
+            var bands = new MusicBandCollectionStructureXML();
+            bands.collection = collection;
+            PrintWriter writer = new PrintWriter(fileName);
+            jaxbMarshaller.marshal(bands, writer);
+            writer.close();
         } catch (PropertyException e) {
             System.out.println("Ошибка доступа к файлу!");
         } catch (JAXBException e) {
             System.out.println("Ошибка при записи коллекции в файл! Текст системной ошибки:");
             System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Невозможно открыть файл на чение");
         }
     }
-
-    /*private void parseXML(String fileName) {
-
-
-
-        for(MusicBand emp : bands.getMusicBandCollection())
-        {
-            System.out.println(emp.name);
-        }
-
-
-    }
-
-    */
 }
