@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<musicBandCollection>
+    <maxID>790</maxID>
+    <band>
+        <id>123</id>
+        <name>Aaaaaaa</name>
+        <coordinates>
+            <x>1.1</x>
+            <y>12</y>
+        </coordinates>
+        <numberOfParticipants>10</numberOfParticipants>
+        <musicGenre>Роцк</musicGenre>
+        <frontMan>
+            <name>Игорь</name>
+            <height>180.0</height>
+            <weight>78</weight>
+            <eyeColor>Карие</eyeColor>
+            <location>
+                <x>123.0</x>
+                <y>321.0</y>
+                <name>Бостон</name>
+            </location>
+        </frontMan>
+        <creationDate>1/01/2000</creationDate>
+    </band>
+    <band>
+        <id>456</id>
+        <name>Bbbbbbb</name>
+        <coordinates>
+            <x>4.4</x>
+            <y>34</y>
+        </coordinates>
+        <numberOfParticipants>9</numberOfParticipants>
+        <musicGenre>Пост роцк</musicGenre>
+        <frontMan>
+            <name>Паша</name>
+            <height>178.0</height>
+            <weight>63</weight>
+            <eyeColor>Голубые</eyeColor>
+            <location>
+                <x>456.0</x>
+                <y>654.0</y>
+                <name>Лекция по проге</name>
+            </location>
+        </frontMan>
+        <creationDate>1/01/2000</creationDate>
+    </band>
+    <band>
+        <id>789</id>
+        <name>Cccccccc</name>
+        <coordinates>
+            <x>7.7</x>
+            <y>56</y>
+        </coordinates>
+        <numberOfParticipants>10</numberOfParticipants>
+        <musicGenre>Джаз</musicGenre>
+        <frontMan>
+            <name>Кастиэль</name>
+            <height>196.0</height>
+            <weight>90</weight>
+            <eyeColor>Алые</eyeColor>
+            <location>
+                <x>789.0</x>
+                <y>987.0</y>
+                <name>Бар "Lux"</name>
+            </location>
+        </frontMan>
+        <creationDate>1/01/2000</creationDate>
+    </band>
+</musicBandCollection>
