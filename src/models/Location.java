@@ -1,7 +1,19 @@
 package models;
 
+import javax.xml.bind.annotation.*;
+
+@XmlRootElement(name = "location")
 public class Location {
-    private Float x;
-    private Float y;
-    private String name = null;
+    @XmlElement(name = "x")
+    public Float x;
+    @XmlElement(name = "y")
+    public Float y;
+    @XmlElement(name = "name")
+    public String name = null;
+
+    @Override
+    public String toString(){
+        return ("[" + x + "; " + y + "; " + name + "]");
+    }
 }
+

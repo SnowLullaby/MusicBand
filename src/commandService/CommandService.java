@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class CommandService {
     private static CommandService instance = null;
-    private CommandService() {};
-    static Scanner scanner = new Scanner(System.in);
+    private CommandService() {}
     private String[] currentCommandLine = null;
+    static Scanner scanner = new Scanner(System.in);
 
     public static CommandService getInstance() {
         if(instance == null){
@@ -19,6 +19,17 @@ public class CommandService {
 
     public void execute() {
         currentCommandLine = scanner.nextLine().trim().split(" ");
+        try {
+            searchCommand(getParam(0)).execute();
+        } catch (NumberFormatException e) {
+            System.out.println("Неверный тип аргументов!");
+        } catch (NoCommandError | NoParamsError e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void executeFromLine(String currentCommand) {
+        currentCommandLine = currentCommand.trim().split(" ");
         try {
             searchCommand(getParam(0)).execute();
         } catch (NumberFormatException e) {
@@ -39,7 +50,7 @@ public class CommandService {
         if (CommandsDesc.SAVE.name.equals(name)) return new SaveCommand();
         if (CommandsDesc.EXECUTE_SCRIPT.name.equals(name)) return new ExecuteScriptCommand(getParam(1));
         if (CommandsDesc.EXIT.name.equals(name)) return new ExitCommand();
-        if (CommandsDesc.REMOVE_AT.name.equals(name)) return new RemoveAtCommand();
+        if (CommandsDesc.REMOVE_AT.name.equals(name)) return new RemoveAtCommand(Integer.parseInt(getParam(1)));
         if (CommandsDesc.ADD_IF_MIN.name.equals(name)) return new AddIfMinCommand();
         if (CommandsDesc.SHUFFLE.name.equals(name)) return new ShuffleCommand();
         if (CommandsDesc.SUM_OF_NUMBER_OF_PARTICIPANTS.name.equals(name)) return new SumOfNumberOfParticipantsCommand();

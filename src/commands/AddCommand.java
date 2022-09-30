@@ -1,7 +1,15 @@
 package commands;
 
-public class AddCommand implements Command {
-    public void execute() {
+import models.MusicBandCollection;
 
+public class AddCommand extends Add {
+    @Override
+    protected boolean addCondition() {
+        return MusicBandCollection.getInstance().findRealMaxID() < Integer.MAX_VALUE;
+    }
+
+    @Override
+    protected Long calculateId() {
+        return MusicBandCollection.getInstance().findRealMaxID() + 1;
     }
 }

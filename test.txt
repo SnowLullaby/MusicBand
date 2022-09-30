@@ -1,2 +1,4 @@
 show
+execute_script test_test.txt
+show
 exit

@@ -1,9 +1,18 @@
 package commands;
 
-public class UpdateIdCommand implements Command {
-    public UpdateIdCommand (int id) { }
+import models.MusicBandCollection;
 
-    public void execute() {
+public class UpdateIdCommand extends Add {
+    private final long id;
+    public UpdateIdCommand (int id) { this.id = id; }
 
+    @Override
+    protected boolean addCondition() {
+        return MusicBandCollection.getInstance().getElementByID(id) != null;
+    }
+
+    @Override
+    protected Long calculateId() {
+        return id;
     }
 }

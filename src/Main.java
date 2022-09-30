@@ -1,16 +1,14 @@
+import parsers.ParserXML;
 import commandService.CommandService;
-import commands.*;
-import models.MusicBandCollection;
+import models.*;
 
 public class Main {
-    private static MusicBandCollection musicBandCollection;
-
     private static String fileName;
 
     public static void main(String[] args) {
         initFileName(args[0]);
-        System.out.println(fileName);
-        musicBandCollection = MusicBandCollection.getInstance(fileName);
+        ISaveLoad saveLoad = new ParserXML(fileName);
+        MusicBandCollection.initInstance(saveLoad);
 
         var commandService = CommandService.getInstance();
 

@@ -3,31 +3,40 @@ package parsers;
 import models.*;
 import javax.xml.bind.*;
 import java.io.*;
+import java.util.AbstractMap;
 import java.util.Vector;
 
-public class Parser implements ISaveLoad {
+public class ParserXML implements ISaveLoad {
     private final String fileName;
+    private AbstractMap.SimpleEntry<Vector<MusicBand>, Long> collectionAndID;
+    private InputStreamReader reader;
 
-    public Parser(String fileName) {
+    public ParserXML(String fileName) {
         this.fileName = fileName;
     }
 
-    public Vector<MusicBand> parse() {
+    public AbstractMap.SimpleEntry<Vector<MusicBand>, Long> parse() {
         var file = new File(fileName);
-        var reader = new InputStreamReader(getFileStream(file));
-        var result = parsing(reader);
-        try {
-            reader.close();
-        } catch (IOException e) {
-            System.out.println("Ошибика доступа к файлу");
-        }
+        this.reader = new InputStreamReader(getFileStream(file));
+        var result = parsing();
+        closeFile(reader);
         return result;
     }
 
-    private static Vector<MusicBand> parsing(InputStreamReader reader) {
+    private static FileInputStream getFileStream(File file) {
         try {
-            var context = JAXBContext.newInstance(MusicBandCollectionStructureXML.class);
-            return ((MusicBandCollectionStructureXML) context.createUnmarshaller().unmarshal(reader)).collection;
+            return new FileInputStream(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не существует или у Вас нет прав для доступа!");
+            System.exit(0);
+        }
+        return null;
+    }
+
+    private AbstractMap.SimpleEntry<Vector<MusicBand>, Long> parsing() {
+        try {
+            var mbcContext = getMBCContext();
+            return new AbstractMap.SimpleEntry<>(mbcContext.collection, mbcContext.maxID);
         } catch (JAXBException e) {
             System.out.println("Ошибка при парсинге XML файла. Текст системной ошибки:");
             System.out.println(e.getMessage());
@@ -37,28 +46,23 @@ public class Parser implements ISaveLoad {
         return null;
     }
 
-    private static FileInputStream getFileStream(File file) {
+    private void closeFile(InputStreamReader reader){
         try {
-            System.out.println(file);
-            return new FileInputStream(file);
-        } catch (FileNotFoundException e) {
-            System.out.println("Файл не существует или у Вас нет прав для доступа!");
-            System.exit(0);
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Ошибка доступа к файлу");
         }
-        return null;
     }
 
-    public void save(Vector<MusicBand> collection) {
+    private MusicBandCollectionStructureXML getMBCContext() throws JAXBException {
+        var context = JAXBContext.newInstance(MusicBandCollectionStructureXML.class);
+        return (MusicBandCollectionStructureXML) context.createUnmarshaller().unmarshal(reader);
+    }
+
+    public void save(AbstractMap.SimpleEntry<Vector<MusicBand>, Long> collectionAndID) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(MusicBandCollectionStructureXML.class);
-            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-            System.out.println("я тут был");
-            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            var bands = new MusicBandCollectionStructureXML();
-            bands.collection = collection;
-            PrintWriter writer = new PrintWriter(fileName);
-            jaxbMarshaller.marshal(bands, writer);
-            writer.close();
+            this.collectionAndID = collectionAndID;
+            saveImp();
         } catch (PropertyException e) {
             System.out.println("Ошибка доступа к файлу!");
         } catch (JAXBException e) {
@@ -68,4 +72,25 @@ public class Parser implements ISaveLoad {
             System.out.println("Невозможно открыть файл на чение");
         }
     }
+
+    private void saveImp() throws JAXBException, FileNotFoundException {
+        var writer = new PrintWriter(fileName);
+        marshalling(writer);
+        writer.close();
+    }
+
+    private void marshalling(PrintWriter writer) throws JAXBException {
+        var jaxbMarshaller = JAXBContext.newInstance(MusicBandCollectionStructureXML.class)
+                .createMarshaller();
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        jaxbMarshaller.marshal(getBands(), writer);
+    }
+
+    private MusicBandCollectionStructureXML getBands() {
+        var bands = new MusicBandCollectionStructureXML();
+        bands.collection = collectionAndID.getKey();
+        bands.maxID = collectionAndID.getValue();
+        return bands;
+    }
+
 }
