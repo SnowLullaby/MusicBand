@@ -1,5 +1,8 @@
 package commands;
 
+import commandService.ExecutionResult;
+
 public interface Command {
-    public void execute();
+     ExecutionResult execute();
 }
+

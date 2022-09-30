@@ -1,9 +1,11 @@
 package commands;
 
-import models.MusicBandCollection;
+import collection.MusicBandCollection;
+import commandService.ExecutionResult;
 
 public class SumOfNumberOfParticipantsCommand implements Command {
-    public void execute() {
-        System.out.printf("Суммарно в группах %d человек\n", MusicBandCollection.getInstance().getSumOfNumberOfParticipants());
+    public ExecutionResult execute() {
+        String res = String.format("Суммарно в группах %d человек\n", MusicBandCollection.getInstance().getSumOfNumberOfParticipants());
+        return new ExecutionResult(res, true);
     }
 }

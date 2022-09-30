@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
 repositories {
@@ -8,5 +10,17 @@ repositories {
 
 dependencies {
     implementation project(':shared')
+}
+
+mainClassName = 'main.ClientMain'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'main.ClientMain'
+    }
+}
+
+run {
+    standardInput = System.in
 }
 

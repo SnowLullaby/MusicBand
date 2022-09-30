@@ -1,8 +1,13 @@
 package commands;
 
-import models.*;
+import collection.MusicBandCollection;
+import models.MusicBand;
 
 public class AddIfMinCommand extends Add {
+    public AddIfMinCommand(MusicBand musicBand) {
+        super(musicBand);
+    }
+
     @Override
     protected boolean addCondition() {
         return MusicBandCollection.getInstance().getFirstID() > 1;

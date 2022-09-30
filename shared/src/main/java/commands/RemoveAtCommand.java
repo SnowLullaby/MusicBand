@@ -1,6 +1,7 @@
 package commands;
 
-import models.MusicBandCollection;
+import collection.MusicBandCollection;
+import commandService.ExecutionResult;
 
 public class RemoveAtCommand implements Command {
     private int index;
@@ -8,8 +9,8 @@ public class RemoveAtCommand implements Command {
         this.index = index;
     }
 
-    public void execute() {
+    public ExecutionResult execute() {
         MusicBandCollection.getInstance().removeAt(index);
-        System.out.println("Элемент удален");
+        return new ExecutionResult("Элемент удален", true);
     }
 }

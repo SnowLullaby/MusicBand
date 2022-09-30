@@ -1,14 +1,18 @@
 package commands;
 
-import models.MusicBand;
-import models.MusicBandCollection;
+
+import collection.MusicBandCollection;
+import commandService.ExecutionResult;
 
 public class RemoveByIdCommand implements Command {
     long id;
-    public RemoveByIdCommand(long id) { this.id = id; }
 
-    public void execute() {
+    public RemoveByIdCommand(long id) {
+        this.id = id;
+    }
+
+    public ExecutionResult execute() {
         MusicBandCollection.getInstance().removeByID(id);
-        System.out.println("Если элемент с таким ID существовал - он удален");
+        return new ExecutionResult("Если элемент с таким ID существовал - он удален", true);
     }
 }

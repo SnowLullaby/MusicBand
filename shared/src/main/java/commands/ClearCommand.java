@@ -1,10 +1,11 @@
 package commands;
 
-import models.MusicBandCollection;
+import collection.MusicBandCollection;
+import commandService.ExecutionResult;
 
 public class ClearCommand implements Command {
-    public void execute() {
+    public ExecutionResult execute() {
         MusicBandCollection.getInstance().removeAll();
-        System.out.println("Очистка коллекции завершена");
+        return new ExecutionResult("Очистка коллекции завершена", true);
     }
 }

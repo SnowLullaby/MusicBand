@@ -1,10 +1,11 @@
 package commands;
 
-import models.*;
+import collection.MusicBandCollection;
+import commandService.ExecutionResult;
 
 public class SaveCommand implements Command {
-    public void execute() {
+    public ExecutionResult execute() {
         MusicBandCollection.getInstance().save();
-        System.out.println("Файл сохранен");
+        return new ExecutionResult("Файл сохранен", true);
     }
 }

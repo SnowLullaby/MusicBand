@@ -1,7 +1,7 @@
 package parsers;
 
 import models.*;
-import javax.xml.bind.*;
+import jakarta.xml.bind.*;
 import java.io.*;
 import java.util.AbstractMap;
 import java.util.Vector;
@@ -41,9 +41,9 @@ public class ParserXML implements ISaveLoad {
             System.out.println("Ошибка при парсинге XML файла. Текст системной ошибки:");
             System.out.println(e.getMessage());
             System.out.println("Возможные способы исправления: проверьте расширение файла и правильность XML-разметки");
-            System.exit(0);
+            throw new RuntimeException(e);
+//            System.exit(1);
         }
-        return null;
     }
 
     private void closeFile(InputStreamReader reader){

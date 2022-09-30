@@ -1,9 +1,11 @@
 package models;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
+
+import java.io.Serializable;
 
 @XmlRootElement(name = "frontMan")
-public class Person {
+public class Person implements Serializable {
     @XmlElement(name = "name")
     public String name;
     @XmlElement(name = "height")

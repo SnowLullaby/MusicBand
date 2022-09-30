@@ -1,8 +1,10 @@
-package models;
+package collection;
 
+import models.ISaveLoad;
+import models.MusicBand;
+import models.Person;
 import validators.MusicBandValidator;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 

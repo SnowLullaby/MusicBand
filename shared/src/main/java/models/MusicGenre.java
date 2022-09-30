@@ -1,9 +1,11 @@
 package models;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
+
+import java.io.Serializable;
 
 @XmlEnum(String.class)
-public enum MusicGenre {
+public enum MusicGenre implements Serializable {
     @XmlEnumValue("Роцк")
     ROCK,
     @XmlEnumValue("Психоделический роцк")

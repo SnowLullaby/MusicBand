@@ -1,18 +1,20 @@
 package commands;
 
-import models.MusicBandCollection;
+import collection.MusicBandCollection;
+import commandService.ExecutionResult;
 import models.Person;
 
 import java.util.Vector;
 
 public class PrintFieldDescendingFrontManCommand implements Command {
-    public void execute() {
+    public ExecutionResult execute() {
         MusicBandCollection.getInstance().descendingSortByID();
         Vector<Person> frontManCollection = MusicBandCollection.getInstance().getFrontManCollection();
+        StringBuilder res = new StringBuilder();
         for (Person frontMan: frontManCollection) {
-            System.out.println(frontMan.toString());
+            res.append(frontMan.toString()).append("\n");
         }
         MusicBandCollection.getInstance().defaultSortByID();
-
+        return new ExecutionResult(res.toString(), true);
     }
 }

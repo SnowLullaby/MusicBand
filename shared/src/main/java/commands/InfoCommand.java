@@ -1,13 +1,16 @@
 package commands;
 
-import models.MusicBandCollection;
+
+import collection.MusicBandCollection;
+import commandService.ExecutionResult;
 
 import java.time.LocalDateTime;
 
 public class InfoCommand implements Command {
-    public void execute() {
+    public ExecutionResult execute() {
         LocalDateTime creationTime = MusicBandCollection.getInstance().getCreationTime();
         int size = MusicBandCollection.getInstance().getSize();
-        System.out.printf("Creation time: %s\nSize: %s\n", creationTime, size);
+        String res = String.format("Creation time: %s\nSize: %s\n", creationTime, size);
+        return new ExecutionResult(res, true);
     }
 }

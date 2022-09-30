@@ -1,5 +1,7 @@
 package commands;
 
+import commandService.ExecutionResult;
+
 import java.util.Vector;
 
 public class HelpCommand implements Command {
@@ -9,9 +11,11 @@ public class HelpCommand implements Command {
         this.commandList = commandList;
     }
 
-    public void execute(){
+    public ExecutionResult execute(){
+        StringBuilder info = new StringBuilder();
         for (CommandsDesc.FullCommandDesc co: commandList) {
-            System.out.printf("%s: %s\n", co.name, co.desc);
+            info.append(String.format("%s: %s\n", co.name, co.desc));
         }
+        return new ExecutionResult(info.toString(), true);
     }
 }

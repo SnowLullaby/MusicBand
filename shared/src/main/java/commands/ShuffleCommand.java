@@ -1,10 +1,11 @@
 package commands;
 
-import models.MusicBandCollection;
+import collection.MusicBandCollection;
+import commandService.ExecutionResult;
 
 public class ShuffleCommand implements Command {
-    public void execute() {
+    public ExecutionResult execute() {
         MusicBandCollection.getInstance().shuffle();
-        System.out.println("Коллекция перемешана");
+        return new ExecutionResult("Коллекция перемешана", true);
     }
 }

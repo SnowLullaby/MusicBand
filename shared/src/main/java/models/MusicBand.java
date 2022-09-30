@@ -1,18 +1,20 @@
 package models;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @XmlRootElement(name = "band")
-public class MusicBand {
+public class MusicBand implements Serializable {
     @XmlElement(name = "id")
     public Long id;
     @XmlElement(name = "name")
     public String name;
     @XmlElement(name = "coordinates")
     public Coordinates coordinates;
-    private LocalDate creationDate;
+    private LocalDate creationDate = LocalDate.now();
     @XmlElement(name = "numberOfParticipants")
     public Long numberOfParticipants = null;
     @XmlElement(name = "musicGenre")

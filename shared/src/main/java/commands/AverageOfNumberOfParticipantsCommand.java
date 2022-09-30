@@ -1,9 +1,11 @@
 package commands;
 
-import models.MusicBandCollection;
+import collection.MusicBandCollection;
+import commandService.ExecutionResult;
 
 public class AverageOfNumberOfParticipantsCommand implements Command {
-    public void execute() {
-        System.out.printf("В среднем в группе %f человек\n", MusicBandCollection.getInstance().getAverageOfNumberOfParticipants());
+    public ExecutionResult execute() {
+        String res = String.format("В среднем в группе %f человек\n", MusicBandCollection.getInstance().getAverageOfNumberOfParticipants());
+        return new ExecutionResult(res, true);
     }
 }

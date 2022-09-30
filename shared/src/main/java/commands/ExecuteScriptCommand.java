@@ -1,24 +1,31 @@
 package commands;
 
+import commandService.CommandReader;
 import commandService.CommandService;
+import commandService.ExecutionResult;
+import communication.CommandInfo;
 import parsers.ScriptParser;
 
 public class ExecuteScriptCommand implements Command {
-    private String fileName;
-    public ExecuteScriptCommand (String fileName) {
+    private final String fileName;
+
+    public ExecuteScriptCommand(String fileName) {
         this.fileName = fileName;
     }
 
-    public void execute() {
+    public ExecutionResult execute() {
         try {
             var commands = ScriptParser.parse(fileName);
-            for (String command: commands) {
-                CommandService.getInstance().executeFromLine(command);
+            for (String commandLine : commands) {
+                CommandInfo commandInfo = CommandReader.parseCommandLine(commandLine);
+                if (commandInfo != null) {
+                    Command command = CommandService.INSTANCE.getCommand(commandInfo.name(), commandInfo.args(), null);
+                    command.execute();
+                }
             }
-            System.out.println("Скрипт выполнен");
+            return new ExecutionResult("Скрипт выполнен", true);
         } catch (Exception e) {
-            System.out.println("Ошибка при доступе к скрипту");
+            return new ExecutionResult("Ошибка при доступе к скрипту", false);
         }
-
     }
 }
