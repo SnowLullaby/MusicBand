@@ -9,7 +9,7 @@ public class FrontManValidator {
         return checkName(frontMan.name)
                 && checkHeight(frontMan.height)
                 && checkWeight(frontMan.weight)
-                && checkEyeColor(frontMan.eyeColor.toString())
+//                && checkEyeColor(frontMan.eyeColor.toString())
                 && checkLocation(frontMan.location);
      }
 
