@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':shared')
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
+    implementation 'com.sun.xml.bind:jaxb-impl:4.0.1'
+}
+
+mainClassName = 'Main'
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'Main'
+    }
+}
+
+run {
+    standardInput = System.in
+}
+

@@ -1,0 +1,3 @@
+rootProject.name = 'prog-lab'
+include 'shared', 'client', 'server'
+
