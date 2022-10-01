@@ -1,7 +1,7 @@
 package parsers;
 
 import models.*;
-import javax.xml.bind.*;
+import jakarta.xml.bind.*;
 import java.io.*;
 import java.util.AbstractMap;
 import java.util.Vector;
