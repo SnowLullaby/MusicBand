@@ -1,6 +1,6 @@
 package models;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 
 /**
  * Store x, y and name for Frontman's location

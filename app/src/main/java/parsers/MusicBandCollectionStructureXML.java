@@ -2,7 +2,7 @@ package parsers;
 
 import models.MusicBand;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 import java.util.Vector;
 
 /**

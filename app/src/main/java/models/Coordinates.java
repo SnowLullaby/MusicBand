@@ -1,6 +1,6 @@
 package models;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 
 /**
  * Store x and y Coordinates of Music Band
