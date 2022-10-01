@@ -41,8 +41,12 @@ public class Server {
                     System.out.println("Got message: " + requestMessage);
                     var commandInfo = requestMessage.commandInfo();
                     Command command = CommandService.INSTANCE.getCommand(commandInfo.name(), commandInfo.args(), (MusicBand) commandInfo.extendedData());
-                    ExecutionResult result = command.execute();
-
+                    ExecutionResult result;
+                    if (command == null) {
+                        result = new ExecutionResult("Неизвестная команда", false);
+                    } else {
+                         result = command.execute();
+                    }
                     System.out.println("Result: " + result);
                     ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
                     out.writeObject(new ResponseMessage(result));
