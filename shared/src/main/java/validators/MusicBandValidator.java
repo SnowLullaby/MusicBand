@@ -9,7 +9,6 @@ public class MusicBandValidator {
                 && checkCoordinates(musicBand.coordinates)
                 && checkCreationDate(musicBand.getCreationDate())
                 && checkNumberOfParticipants(musicBand.numberOfParticipants)
-                && checkGenre(musicBand.genre.toString())
                 && checkFrontMan(musicBand.frontMan);
     }
 

@@ -9,21 +9,11 @@ public class FrontManValidator {
         return checkName(frontMan.name)
                 && checkHeight(frontMan.height)
                 && checkWeight(frontMan.weight)
-                && checkEyeColor(frontMan.eyeColor.toString())
                 && checkLocation(frontMan.location);
      }
 
     public static boolean checkLocation(Location location) {
         return location == null || LocationValidator.checkLocation(location);
-    }
-
-    public static boolean checkEyeColor(String eyeColor) {
-        try {
-            Enum.valueOf(Color.class, eyeColor);
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
     }
 
     public static boolean checkWeight(Long weight) {
