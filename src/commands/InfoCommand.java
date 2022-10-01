@@ -1,7 +1,6 @@
 package commands;
 
 import models.MusicBandCollection;
-
 import java.time.LocalDateTime;
 
 public class InfoCommand implements Command {

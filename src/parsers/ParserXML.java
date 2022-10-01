@@ -6,15 +6,30 @@ import java.io.*;
 import java.util.AbstractMap;
 import java.util.Vector;
 
+/**
+ * Parsed .xml file
+ * @see ISaveLoad
+ */
 public class ParserXML implements ISaveLoad {
+    /**path to file*/
     private final String fileName;
+    /**pair of collection and maxID of the elements*/
     private AbstractMap.SimpleEntry<Vector<MusicBand>, Long> collectionAndID;
+    /**reader*/
     private InputStreamReader reader;
 
+    /**
+     * set path to file
+     * @param fileName path to file
+     */
     public ParserXML(String fileName) {
         this.fileName = fileName;
     }
 
+    /**
+     * pars xml file
+     * @return pair of collection and maxID of the elements
+     */
     public AbstractMap.SimpleEntry<Vector<MusicBand>, Long> parse() {
         var file = new File(fileName);
         this.reader = new InputStreamReader(getFileStream(file));
@@ -23,6 +38,11 @@ public class ParserXML implements ISaveLoad {
         return result;
     }
 
+    /**
+     * get FileInputStream
+     * @param file - file that need to parse
+     * @return File stream reader
+     */
     private static FileInputStream getFileStream(File file) {
         try {
             return new FileInputStream(file);
@@ -33,6 +53,10 @@ public class ParserXML implements ISaveLoad {
         return null;
     }
 
+    /**
+     * get pair: collection and maxID of the elements
+     * @return pair of collection and maxID of the elements
+     */
     private AbstractMap.SimpleEntry<Vector<MusicBand>, Long> parsing() {
         try {
             var mbcContext = getMBCContext();
@@ -46,6 +70,10 @@ public class ParserXML implements ISaveLoad {
         return null;
     }
 
+    /**
+     * try to close reader
+     * @param reader - InputStreamReader
+     */
     private void closeFile(InputStreamReader reader){
         try {
             reader.close();
@@ -54,11 +82,20 @@ public class ParserXML implements ISaveLoad {
         }
     }
 
+    /**
+     * unmarshalling for JAXB
+     * @return  MusicBandCollection - data for filling collection
+     * @throws JAXBException - errors of library
+     */
     private MusicBandCollectionStructureXML getMBCContext() throws JAXBException {
         var context = JAXBContext.newInstance(MusicBandCollectionStructureXML.class);
         return (MusicBandCollectionStructureXML) context.createUnmarshaller().unmarshal(reader);
     }
 
+    /**
+     * saving xml file
+     * @param collectionAndID - Music band collection and MaxID
+     */
     public void save(AbstractMap.SimpleEntry<Vector<MusicBand>, Long> collectionAndID) {
         try {
             this.collectionAndID = collectionAndID;
@@ -73,12 +110,22 @@ public class ParserXML implements ISaveLoad {
         }
     }
 
+    /**
+     * getting writer
+     * @throws JAXBException - errors of library
+     * @throws FileNotFoundException - file not found exception
+     */
     private void saveImp() throws JAXBException, FileNotFoundException {
         var writer = new PrintWriter(fileName);
         marshalling(writer);
         writer.close();
     }
 
+    /**
+     * Marshalling for JAXB
+     * @param writer - PrintWriter
+     * @throws JAXBException - errors of library
+     */
     private void marshalling(PrintWriter writer) throws JAXBException {
         var jaxbMarshaller = JAXBContext.newInstance(MusicBandCollectionStructureXML.class)
                 .createMarshaller();
@@ -86,6 +133,10 @@ public class ParserXML implements ISaveLoad {
         jaxbMarshaller.marshal(getBands(), writer);
     }
 
+    /**
+     * get collection for writing
+     * @return bands - Music band collection and maxID
+     */
     private MusicBandCollectionStructureXML getBands() {
         var bands = new MusicBandCollectionStructureXML();
         bands.collection = collectionAndID.getKey();
