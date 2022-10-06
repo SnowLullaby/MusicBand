@@ -31,7 +31,7 @@ public class CommandExecutor {
     private void processRemoteCommand(CommandInfo commandInfo) throws IOException {
         this.clientCommunicator.send(new RequestMessage(commandInfo));
         try {
-            Thread.sleep(80);
+            Thread.sleep(400);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
