@@ -41,7 +41,7 @@ public class CommandExecutor {
 
     private void processResponse(ResponseMessage responseMessage) {
         if (!responseMessage.result().isOk()){
-            System.out.println("Ошибка: ");
+            System.out.println("Error: ");
         }
         System.out.println(responseMessage.result().message());
     }

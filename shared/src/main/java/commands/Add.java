@@ -18,7 +18,7 @@ abstract class Add implements Command {
             setIDAndDate(musicBand);
             MusicBandCollection.getInstance().addElement(musicBand);
             MusicBandCollection.getInstance().defaultSortByID();
-            return new ExecutionResult("Элемент добавлен", true);
+            return new ExecutionResult("Element added", true);
         } catch (NoMoreFreeIDError e) {
             return new ExecutionResult(e.getMessage(), false);
         }

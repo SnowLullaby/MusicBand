@@ -11,6 +11,6 @@ public class RemoveAtCommand implements Command {
 
     public ExecutionResult execute() {
         MusicBandCollection.getInstance().removeAt(index);
-        return new ExecutionResult("Элемент удален", true);
+        return new ExecutionResult("Removed", true);
     }
 }

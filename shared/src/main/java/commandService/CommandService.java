@@ -13,7 +13,7 @@ public class CommandService {
         try {
             return searchCommand(name, args, musicBand);
         } catch (NumberFormatException | IndexOutOfBoundsException | NullPointerException e) {
-            System.out.println("Неверно введены аргументы!");
+            System.out.println("Incorrect arguments");
             return null;
         } catch (NoCommandError e) {
             System.out.println(e.getMessage());

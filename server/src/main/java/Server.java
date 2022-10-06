@@ -43,7 +43,7 @@ public class Server {
                     Command command = CommandService.INSTANCE.getCommand(commandInfo.name(), commandInfo.args(), (MusicBand) commandInfo.extendedData());
                     ExecutionResult result;
                     if (command == null) {
-                        result = new ExecutionResult("Неизвестная команда", false);
+                        result = new ExecutionResult("Undefined command", false);
                     } else {
                          result = command.execute();
                     }

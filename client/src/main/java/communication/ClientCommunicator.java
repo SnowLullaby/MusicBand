@@ -50,7 +50,7 @@ public class ClientCommunicator {
 
     public void connectToServer() {
         if (!connect()) {
-            System.out.println("Не удалось подключиться");
+            System.out.println("Connection failed");
             System.exit(1);
         }
     }
@@ -61,7 +61,7 @@ public class ClientCommunicator {
                 InetSocketAddress inetSocketAddress = new InetSocketAddress(host, port);
                 socketChannel = SocketChannel.open(inetSocketAddress);
                 socketChannel.configureBlocking(false);
-                System.out.println("Подключение успешно");
+                System.out.println("Connection successful");
                 return true;
             } catch (IOException ignored) {}
             try {

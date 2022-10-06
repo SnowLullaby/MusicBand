@@ -9,16 +9,16 @@
             <y>12</y>
         </coordinates>
         <numberOfParticipants>10</numberOfParticipants>
-        <musicGenre>Роцк</musicGenre>
+		<musicGenre>ROCK</musicGenre>
         <frontMan>
-            <name>Игорь</name>
+            <name>Igor</name>
             <height>180.0</height>
             <weight>78</weight>
-            <eyeColor>Карие</eyeColor>
+			<eyeColor>GREEN</eyeColor>
             <location>
                 <x>123.0</x>
                 <y>321.0</y>
-                <name>Бостон</name>
+                <name>Boston</name>
             </location>
         </frontMan>
         <creationDate>1/01/2000</creationDate>
@@ -31,16 +31,16 @@
             <y>34</y>
         </coordinates>
         <numberOfParticipants>9</numberOfParticipants>
-        <musicGenre>Пост роцк</musicGenre>
+		<musicGenre>PSYCHEDELIC POCK</musicGenre>
         <frontMan>
-            <name>Паша</name>
+            <name>Pavel</name>
             <height>178.0</height>
             <weight>63</weight>
-            <eyeColor>Голубые</eyeColor>
+			<eyeColor>BLUE</eyeColor>
             <location>
                 <x>456.0</x>
                 <y>654.0</y>
-                <name>Лекция по проге</name>
+                <name>Lection</name>
             </location>
         </frontMan>
         <creationDate>1/01/2000</creationDate>
@@ -53,16 +53,16 @@
             <y>56</y>
         </coordinates>
         <numberOfParticipants>10</numberOfParticipants>
-        <musicGenre>Джаз</musicGenre>
+		<musicGenre>JAZZ</musicGenre>
         <frontMan>
-            <name>Кастиэль</name>
+            <name>Kas</name>
             <height>196.0</height>
             <weight>90</weight>
-            <eyeColor>Алые</eyeColor>
+			<eyeColor>RED</eyeColor>
             <location>
                 <x>789.0</x>
                 <y>987.0</y>
-                <name>Бар "Lux"</name>
+                <name>Bar "Lux"</name>
             </location>
         </frontMan>
         <creationDate>1/01/2000</creationDate>

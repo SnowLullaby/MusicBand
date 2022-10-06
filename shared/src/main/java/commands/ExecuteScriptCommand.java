@@ -23,9 +23,9 @@ public class ExecuteScriptCommand implements Command {
                     command.execute();
                 }
             }
-            return new ExecutionResult("Скрипт выполнен", true);
+            return new ExecutionResult("Script's execution finished", true);
         } catch (Exception e) {
-            return new ExecutionResult("Ошибка при доступе к скрипту", false);
+            return new ExecutionResult("Access to file denied", false);
         }
     }
 }

@@ -26,7 +26,7 @@ public class MusicBandValidator {
     }
 
     public static boolean checkNumberOfParticipants(Long numberOfParticipants) {
-        return numberOfParticipants > 0;
+        return numberOfParticipants == null || numberOfParticipants > 0;
     }
 
     public static boolean checkCreationDate(String creationDate) {

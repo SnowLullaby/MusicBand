@@ -20,7 +20,7 @@ public class Main {
         try {
             server.run();
         } catch (IOException e) {
-            System.out.println("Сервер остановлен с ошибкой: " + e.getMessage());
+            System.out.println("Server stopped with error: " + e.getMessage());
         }
     }
 
@@ -28,7 +28,7 @@ public class Main {
         try {
             Main.fileName = fileName;
         } catch (Exception e){
-            System.out.println("Не указано имя файла");
+            System.out.println("File name not specified");
             System.exit(0);
         }
     }

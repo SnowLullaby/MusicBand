@@ -4,8 +4,8 @@ import commandService.ExecutionResult;
 
 public class ExitCommand implements Command {
     public ExecutionResult execute() {
-        System.out.println("Благодарю за использование!");
+        System.out.println("See you later!");
         System.exit(0);
-        return new ExecutionResult("Благодарю за использование!", true);
+        return new ExecutionResult("See you later!", true);
     }
 }
