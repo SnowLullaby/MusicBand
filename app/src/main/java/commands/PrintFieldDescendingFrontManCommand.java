@@ -10,7 +10,7 @@ public class PrintFieldDescendingFrontManCommand implements Command {
         MusicBandCollection.getInstance().descendingSortByID();
         Vector<Person> frontManCollection = MusicBandCollection.getInstance().getFrontManCollection();
         for (Person frontMan: frontManCollection) {
-            System.out.println(frontMan.toString());
+            System.out.println(frontMan);
         }
         MusicBandCollection.getInstance().defaultSortByID();
 
