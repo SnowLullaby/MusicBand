@@ -4,14 +4,14 @@ import jakarta.xml.bind.annotation.*;
 
 @XmlEnum(String.class)
 public enum MusicGenre {
-    @XmlEnumValue("Роцк")
+    @XmlEnumValue("ROCK")
     ROCK,
-    @XmlEnumValue("Психоделический роцк")
+    @XmlEnumValue("PSYCHEDELIC POCK")
     PSYCHEDELIC_ROCK,
-    @XmlEnumValue("Психоделический клубный рэп")
+    @XmlEnumValue("PSYCHEDELIC CLOUD RAP")
     PSYCHEDELIC_CLOUD_RAP,
-    @XmlEnumValue("Джаз")
+    @XmlEnumValue("JAZZ")
     JAZZ,
-    @XmlEnumValue("Пост роцк")
+    @XmlEnumValue("POST ROCK")
     POST_ROCK;
 }

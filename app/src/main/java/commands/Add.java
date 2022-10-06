@@ -18,32 +18,33 @@ abstract class Add implements Command {
             readAll();
             MusicBandCollection.getInstance().addElement(band);
             MusicBandCollection.getInstance().defaultSortByID();
-            System.out.println("Элемент добавлен");
+            System.out.println("Element added");
         } catch (NoMoreFreeIDError e) {
             System.out.println(e.getMessage());
         }
     }
 
     private void readAll() {
-        band.name = genericRead("название группы", String::new, MusicBandValidator::checkName);
-        System.out.println("Заполнените данные о координатах группы");
+        band.name = genericRead("group name", String::new, MusicBandValidator::checkName);
+        System.out.println("fill data about coordinates");
         band.coordinates = new Coordinates();
-        band.coordinates.x = genericRead("координату x", Double::parseDouble, CoordinatesValidator::checkX);
-        band.coordinates.y = genericRead("координату y", Integer::parseInt, CoordinatesValidator::checkY);
-        band.numberOfParticipants = genericRead("количество участников", Long::parseLong, MusicBandValidator::checkNumberOfParticipants);
-        band.genre = genericRead("жанр музыки. Возможные варианты " + Arrays.toString(MusicGenre.values()), Add::toGenre, (String) -> true);
-        System.out.println("Введите yes если хотите ввесли данные о солисте");
+        band.coordinates.x = genericRead("x", Double::parseDouble, CoordinatesValidator::checkX);
+        band.coordinates.y = genericRead("y", Integer::parseInt, CoordinatesValidator::checkY);
+        band.numberOfParticipants = genericRead("number of participants", Long::parseLong, MusicBandValidator::checkNumberOfParticipants);
+        band.genre = genericRead("music genre. Options: " + Arrays.toString(MusicGenre.values()), Add::toGenre, (String) -> true);
+        System.out.println("Enter yes if you want to fill date about front man");
         if (sc.nextLine().equals("yes")) {
             band.frontMan = new Person();
-            band.frontMan.name = genericRead("имя солиста", String::new, FrontManValidator::checkName);
-            band.frontMan.height = genericRead("рост солиста", Double::parseDouble, FrontManValidator::checkHeight);
-            band.frontMan.weight = genericRead("веc солиста", Long::parseLong, FrontManValidator::checkWeight);
-            band.genre = genericRead("цвет глаз солиста. Возможные варианты " + Arrays.toString(Color.values()), Add::toGenre, (String) -> true);
+            band.frontMan.name = genericRead("name", String::new, FrontManValidator::checkName);
+            band.frontMan.height = genericRead("height", Double::parseDouble, FrontManValidator::checkHeight);
+            band.frontMan.weight = genericRead("weight", Long::parseLong, FrontManValidator::checkWeight);
+            band.frontMan.eyeColor = genericRead("eye color. Options " + Arrays.toString(Color.values()), Add::toEyeColor, (String) -> true);
+            System.out.println("Enter yes if you want to fill date about location");
             if (sc.nextLine().equals("yes")) {
                 band.frontMan.location = new Location();
-                band.frontMan.location.x = genericRead("координату x", Float::parseFloat, LocationValidator::checkX);
-                band.frontMan.location.y = genericRead("координату y", Float::parseFloat, LocationValidator::checkY);
-                band.frontMan.location.name = genericRead("название локации", String::new, LocationValidator::checkName);
+                band.frontMan.location.x = genericRead("x", Float::parseFloat, LocationValidator::checkX);
+                band.frontMan.location.y = genericRead("y", Float::parseFloat, LocationValidator::checkY);
+                band.frontMan.location.name = genericRead("name", String::new, LocationValidator::checkName);
             }
         }
     }
@@ -57,7 +58,7 @@ abstract class Add implements Command {
     }
 
     private <T> T genericRead(String message, Function<String, T> parser, Predicate<T> constraint) {
-        System.out.println("Введите " + message);
+        System.out.println("Enter " + message);
         while (true) {
             String inputValue = sc.nextLine();
             try {
@@ -72,7 +73,7 @@ abstract class Add implements Command {
                 }
             } catch (NullPointerException | IllegalArgumentException ignored) {
             }
-            System.out.println("Введенное значение не удовлетворяет условию. Попробуйте еще раз");
+            System.out.println("Incorrect value. Try again");
         }
     }
 

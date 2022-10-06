@@ -47,7 +47,7 @@ public class ParserXML implements ISaveLoad {
         try {
             return new FileInputStream(file);
         } catch (FileNotFoundException e) {
-            System.out.println("Файл не существует или у Вас нет прав для доступа!");
+            System.out.println("File doesn't exist or access is denied");
             System.exit(0);
         }
         return null;
@@ -62,9 +62,9 @@ public class ParserXML implements ISaveLoad {
             var mbcContext = getMBCContext();
             return new AbstractMap.SimpleEntry<>(mbcContext.collection, mbcContext.maxID);
         } catch (JAXBException e) {
-            System.out.println("Ошибка при парсинге XML файла. Текст системной ошибки:");
+            System.out.println("Parsing XML error. Error's text:");
             System.out.println(e.getMessage());
-            System.out.println("Возможные способы исправления: проверьте расширение файла и правильность XML-разметки");
+            System.out.println("Possible ways to correct: check file extension or XML markup");
             System.exit(0);
         }
         return null;
@@ -78,7 +78,7 @@ public class ParserXML implements ISaveLoad {
         try {
             reader.close();
         } catch (IOException e) {
-            System.out.println("Ошибка доступа к файлу");
+            System.out.println("Access to file is denied");
         }
     }
 
@@ -101,12 +101,12 @@ public class ParserXML implements ISaveLoad {
             this.collectionAndID = collectionAndID;
             saveImp();
         } catch (PropertyException e) {
-            System.out.println("Ошибка доступа к файлу!");
+            System.out.println("Access to file is denied");
         } catch (JAXBException e) {
-            System.out.println("Ошибка при записи коллекции в файл! Текст системной ошибки:");
+            System.out.println("Saving into file error. Error's text:");
             System.out.println(e.getMessage());
         } catch (IOException e) {
-            System.out.println("Невозможно открыть файл на чение");
+            System.out.println("Impossible open file for writing");
         }
     }
 

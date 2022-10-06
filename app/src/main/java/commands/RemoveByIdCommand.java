@@ -9,6 +9,6 @@ public class RemoveByIdCommand implements Command {
 
     public void execute() {
         MusicBandCollection.getInstance().removeByID(id);
-        System.out.println("Если элемент с таким ID существовал - он удален");
+        System.out.println("If the elements existed, it is removed");
     }
 }

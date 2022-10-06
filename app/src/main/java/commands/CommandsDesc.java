@@ -3,7 +3,7 @@ package commands;
 import java.util.Vector;
 
 public class CommandsDesc {
-    public static final FullCommandDesc HELP = new FullCommandDesc("help", "выводит справку по коммандам");
+    public static final FullCommandDesc HELP = new FullCommandDesc("help", "show commands info");
     public static final FullCommandDesc INFO = new FullCommandDesc("info", "Выводит в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов)");
     public static final FullCommandDesc SHOW = new FullCommandDesc("show", "Выводит в стандартный поток вывода все элементы коллекции в строковом предствалении");
     public static final FullCommandDesc ADD = new FullCommandDesc("add","Добавляет новый элемент в коллекцию");

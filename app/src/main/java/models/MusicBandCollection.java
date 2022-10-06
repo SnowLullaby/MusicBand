@@ -53,7 +53,7 @@ public class MusicBandCollection {
      */
     private static void checkID() {
         if (instance.maxID == null) {
-            System.out.println("В файле отсутствует максимальный ID");
+            System.out.println("No max ID in the file");
             System.exit(0);
         }
     }
@@ -66,7 +66,7 @@ public class MusicBandCollection {
         for (MusicBand band: instance.collection) {
             checkMusicBands(band);
             if (differentIDs.contains(band.id)) {
-                System.out.println("Проверьте уникальность ID в коллекции!");
+                System.out.println("Check uniqueness ID in collection!");
                 System.exit(0);
 
             }
@@ -74,13 +74,9 @@ public class MusicBandCollection {
         }
     }
 
-    /**
-     *
-     * @param band -
-     */
     private static void checkMusicBands(MusicBand band) {
         if (!MusicBandValidator.checkMusicBand(band) ) {
-            System.out.println("Некорректный формат данных в исходном XML-файле");
+            System.out.println("Incorrect format in original XML-file");
             System.exit(0);
         }
     }
@@ -91,14 +87,10 @@ public class MusicBandCollection {
     private static void checkCorrectMaxID() {
         if (instance.findRealMaxID() != instance.maxID){
             instance.maxID = instance.findRealMaxID();
-            System.out.printf("В файле неверно указан максимальный ID элементов. Рекомендуется исправить на %d или вызвать команду save!\n", instance.maxID);
+            System.out.printf("Incorrect max element's ID in the file. Recommended to rewrite max ID to %d or use save command!\n", instance.maxID);
         }
     }
 
-    /**
-     *
-     * @return
-     */
     public long findRealMaxID() {
         long realMaxID = 0;
         for (MusicBand band: collection) {
@@ -107,26 +99,14 @@ public class MusicBandCollection {
         return realMaxID;
     }
 
-    /**
-     *
-     * @return
-     */
     public int getSize() {
         return collection.size();
     }
 
-    /**
-     *
-     * @return
-     */
     public LocalDateTime getCreationTime() {
         return creationTime;
     }
 
-    /**
-     *
-     * @return
-     */
     public Long getFirstID() {
         return collection.get(0).id;
     }
@@ -139,20 +119,11 @@ public class MusicBandCollection {
         saveLoad.save(collAndID);
     }
 
-    /**
-     *
-     * @param band
-     */
     public void addElement(MusicBand band) {
         collection.add(band);
         maxID = findRealMaxID();
     }
 
-    /**
-     *
-     * @param id
-     * @return
-     */
     public MusicBand getElementByID(Long id) {
         for (MusicBand band : collection){
             if (Objects.equals(band.id, id))
@@ -161,42 +132,23 @@ public class MusicBandCollection {
         return null;
     }
 
-    /**
-     *
-     * @param index
-     * @throws ArrayIndexOutOfBoundsException
-     */
     public void removeAt(int index) throws ArrayIndexOutOfBoundsException{
         collection.remove(index);
     }
 
-    /**
-     *
-     * @param id
-     */
     public void removeByID(Long id) {
         collection.removeIf(band -> Objects.equals(band.id, id));
         maxID = findRealMaxID();
     }
 
-    /**
-     *
-     */
     public void removeAll() {
         collection.clear();
     }
 
-    /**
-     *
-     */
     public void shuffle() {
         Collections.shuffle(collection);
     }
 
-    /**
-     *
-     * @return
-     */
     public long getSumOfNumberOfParticipants() {
         long sum = 0;
         for (MusicBand band: collection) {
@@ -205,54 +157,34 @@ public class MusicBandCollection {
         return sum;
     }
 
-    /**
-     *
-     * @return
-     */
     public double getAverageOfNumberOfParticipants() {
         var average = (double) getSumOfNumberOfParticipants();
         average /= collection.size();
         return average;
     }
 
-    /**
-     *
-     */
     public void defaultSortByID() {
         Comparator<MusicBand> comparator = new ItemLocationComparatorAscending();
         collection.sort(comparator);
     }
 
-    /**
-     *
-     */
     static class ItemLocationComparatorAscending implements Comparator<MusicBand> {
         public int compare(MusicBand band1, MusicBand band2) {
             return band1.id.compareTo(band2.id);
         }
     }
 
-    /**
-     *
-     */
     public void descendingSortByID() {
         Comparator<MusicBand> comparator = new ItemLocationComparatorDescending();
         collection.sort(comparator);
     }
 
-    /**
-     *
-     */
     static class ItemLocationComparatorDescending implements Comparator<MusicBand> {
         public int compare(MusicBand band1, MusicBand band2) {
             return band2.id.compareTo(band1.id);
         }
     }
 
-    /**
-     *
-     * @return
-     */
     public Vector<Person> getFrontManCollection() {
         var frontManCollection = new Vector<Person>();
         for (MusicBand band: collection) {

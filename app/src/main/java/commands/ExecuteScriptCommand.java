@@ -15,9 +15,9 @@ public class ExecuteScriptCommand implements Command {
             for (String command: commands) {
                 CommandService.getInstance().executeFromLine(command);
             }
-            System.out.println("Скрипт выполнен");
+            System.out.println("Script's execution finished");
         } catch (Exception e) {
-            System.out.println("Ошибка при доступе к скрипту");
+            System.out.println("Access to file denied");
         }
 
     }

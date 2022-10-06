@@ -31,7 +31,7 @@ public class ScriptParser {
         try {
             return new InputStreamReader(new FileInputStream(file));
         } catch (FileNotFoundException e) {
-            System.out.println("Файл не существует или у Вас нет прав для доступа!");
+            System.out.println("File doesn't exist or access is denied");
             System.exit(0);
         }
         return null;

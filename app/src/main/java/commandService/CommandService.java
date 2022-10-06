@@ -22,7 +22,7 @@ public class CommandService {
         try {
             searchCommand(getParam(0)).execute();
         } catch (NumberFormatException e) {
-            System.out.println("Неверный тип аргументов!");
+            System.out.println("Incorrect argument's tip");
         } catch (NoCommandError | NoParamsError e) {
             System.out.println(e.getMessage());
         }
@@ -33,7 +33,7 @@ public class CommandService {
         try {
             searchCommand(getParam(0)).execute();
         } catch (NumberFormatException e) {
-            System.out.println("Неверный тип аргументов!");
+            System.out.println("Incorrect argument's tip");
         } catch (NoCommandError | NoParamsError e) {
             System.out.println(e.getMessage());
         }

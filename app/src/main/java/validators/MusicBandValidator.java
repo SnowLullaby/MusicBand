@@ -9,7 +9,6 @@ public class MusicBandValidator {
                 && checkCoordinates(musicBand.coordinates)
                 && checkCreationDate(musicBand.getCreationDate())
                 && checkNumberOfParticipants(musicBand.numberOfParticipants)
-               // && checkGenre(musicBand.genre.toString())
                 && checkFrontMan(musicBand.frontMan);
     }
 
@@ -17,17 +16,8 @@ public class MusicBandValidator {
         return frontMan == null || FrontManValidator.checkFrontMan(frontMan);
     }
 
-    public static boolean checkGenre(String genre) {
-        try {
-            Enum.valueOf(MusicGenre.class, genre);
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
-    }
-
     public static boolean checkNumberOfParticipants(Long numberOfParticipants) {
-        return numberOfParticipants > 0;
+        return numberOfParticipants == null || numberOfParticipants > 0;
     }
 
     public static boolean checkCreationDate(String creationDate) {

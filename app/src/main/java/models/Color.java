@@ -4,12 +4,12 @@ import jakarta.xml.bind.annotation.*;
 
 @XmlEnum(String.class)
 public enum Color {
-    @XmlEnumValue("Зеленые")
+    @XmlEnumValue("GREEN")
     GREEN,
-    @XmlEnumValue("Алые")
+    @XmlEnumValue("RED")
     RED,
-    @XmlEnumValue("Голубые")
+    @XmlEnumValue("BLUE")
     BLUE,
-    @XmlEnumValue("Карие")
+    @XmlEnumValue("BROWN")
     BROWN;
 }

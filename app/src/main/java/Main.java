@@ -32,7 +32,7 @@ public class Main {
         try {
             Main.fileName = fileName;
         } catch (Exception e){
-            System.out.println("Не указано имя файла");
+            System.out.println("File name not specified");
             System.exit(0);
         }
     }

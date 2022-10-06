@@ -5,6 +5,6 @@ import models.*;
 public class SaveCommand implements Command {
     public void execute() {
         MusicBandCollection.getInstance().save();
-        System.out.println("Файл сохранен");
+        System.out.println("File saved");
     }
 }

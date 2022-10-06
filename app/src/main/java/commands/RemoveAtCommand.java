@@ -10,6 +10,6 @@ public class RemoveAtCommand implements Command {
 
     public void execute() {
         MusicBandCollection.getInstance().removeAt(index);
-        System.out.println("Элемент удален");
+        System.out.println("Removed");
     }
 }
