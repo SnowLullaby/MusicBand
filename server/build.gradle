@@ -10,8 +10,7 @@ repositories {
 
 dependencies {
     implementation project(':shared')
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
-    implementation 'com.sun.xml.bind:jaxb-impl:4.0.1'
+    runtimeOnly 'org.postgresql:postgresql:42.3.7'
 }
 
 mainClassName = 'Main'

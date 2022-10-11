@@ -11,25 +11,13 @@ import java.time.format.DateTimeFormatter;
  */
 @XmlRootElement(name = "band")
 public class MusicBand implements Serializable {
-    @XmlElement(name = "id")
     public Long id; //not null > 0, auto-generated
-    @XmlElement(name = "name")
     public String name; //not null, not ""
-    @XmlElement(name = "coordinates")
     public Coordinates coordinates;
-    private LocalDate creationDate = LocalDate.now();
-    @XmlElement(name = "numberOfParticipants")
-    public Long numberOfParticipants = null; //may be null or > 0
-    @XmlElement(name = "musicGenre")
+    public LocalDate creationDate = LocalDate.now();
+    public Long numberOfParticipants; //may be null or > 0
     public MusicGenre genre; //not null
-    @XmlElement(name = "frontMan")
-    public Person frontMan = null;
-
-    @XmlElement(name = "creationDate")
-    public void setCreationDate(String date){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-        creationDate = LocalDate.parse(date, formatter);
-    }
+    public Person frontMan;
 
     public String getCreationDate(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");

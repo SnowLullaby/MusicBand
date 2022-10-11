@@ -1,20 +1,25 @@
 package commands;
 
 import collection.MusicBandCollection;
+import commandService.ExecutionResult;
 import models.MusicBand;
 
-public class AddCommand extends Add {
+import java.time.LocalDate;
+
+public class AddCommand implements Command {
+    private final MusicBand musicBand;
+
     public AddCommand(MusicBand musicBand) {
-        super(musicBand);
+        this.musicBand = musicBand;
     }
 
     @Override
-    protected boolean addCondition() {
-        return MusicBandCollection.getInstance().findRealMaxID() < Integer.MAX_VALUE;
-    }
-
-    @Override
-    protected Long calculateId() {
-        return MusicBandCollection.getInstance().findRealMaxID() + 1;
+    public ExecutionResult execute() {
+        musicBand.setCreationDateAsDate(LocalDate.now());
+        if (MusicBandCollection.getInstance().addElement(musicBand)) {
+            MusicBandCollection.getInstance().defaultSortByID();
+            return new ExecutionResult("Successfully add element", true);
+        }
+        return new ExecutionResult("Failed to add element", false);
     }
 }

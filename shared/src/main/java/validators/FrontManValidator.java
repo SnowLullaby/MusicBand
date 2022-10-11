@@ -13,11 +13,11 @@ public class FrontManValidator {
      }
 
     public static boolean checkLocation(Location location) {
-        return location == null || LocationValidator.checkLocation(location);
+        return location != null && LocationValidator.checkLocation(location);
     }
 
     public static boolean checkWeight(Long weight) {
-        return weight == null || weight > 0;
+        return weight != null && weight > 0;
     }
 
     public static boolean checkHeight(Double height) {

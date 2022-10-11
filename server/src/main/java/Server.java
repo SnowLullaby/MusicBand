@@ -1,10 +1,7 @@
 import collection.MusicBandCollection;
-import commandService.CommandService;
-import commandService.ExecutionResult;
-import commands.Command;
 import communication.RequestMessage;
 import communication.ResponseMessage;
-import models.MusicBand;
+import collection.DbPersistenceManager;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -13,6 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
+    private final MessageProcessor messageProcessor;
     private Socket clientSocket; //сокет для общения
     private ServerSocket server; // серверсокет
 
@@ -23,6 +21,7 @@ public class Server {
     public Server(int port) {
         this.port = port;
         this.collectionManager = MusicBandCollection.getInstance();
+        messageProcessor = new MessageProcessor(DbPersistenceManager.INSTANCE);
     }
 
     public void run() throws IOException {
@@ -38,18 +37,9 @@ public class Server {
                 while (true) {
                     ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
                     var requestMessage = (RequestMessage) in.readObject();
-                    System.out.println("Got message: " + requestMessage);
-                    var commandInfo = requestMessage.commandInfo();
-                    Command command = CommandService.INSTANCE.getCommand(commandInfo.name(), commandInfo.args(), (MusicBand) commandInfo.extendedData());
-                    ExecutionResult result;
-                    if (command == null) {
-                        result = new ExecutionResult("Undefined command", false);
-                    } else {
-                         result = command.execute();
-                    }
-                    System.out.println("Result: " + result);
+                    ResponseMessage result = messageProcessor.process(requestMessage);
                     ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
-                    out.writeObject(new ResponseMessage(result));
+                    out.writeObject(result);
                 }
             } catch (IOException | ClassNotFoundException e){
                 clientSocket.close();

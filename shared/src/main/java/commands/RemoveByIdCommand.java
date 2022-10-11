@@ -12,7 +12,9 @@ public class RemoveByIdCommand implements Command {
     }
 
     public ExecutionResult execute() {
-        MusicBandCollection.getInstance().removeByID(id);
-        return new ExecutionResult("If the elements existed, it is removed", true);
+        if (MusicBandCollection.getInstance().removeByID(id)) {
+            return new ExecutionResult("Element is removed", true);
+        }
+        return new ExecutionResult("Failed to remmove an element with id: " + id, false);
     }
 }

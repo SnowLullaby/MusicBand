@@ -12,8 +12,7 @@ public class CommandService {
     public Command getCommand(String name, List<String> args, MusicBand musicBand) {
         try {
             return searchCommand(name, args, musicBand);
-        } catch (NumberFormatException | IndexOutOfBoundsException | NullPointerException e) {
-            System.out.println("Incorrect arguments");
+        } catch (NumberFormatException | IndexOutOfBoundsException | NullPointerException e) {System.out.println("Incorrect arguments");
             return null;
         } catch (NoCommandError e) {
             System.out.println(e.getMessage());

@@ -23,22 +23,16 @@ public class ModelReader {
         band.coordinates.x = genericRead("x", Double::parseDouble, CoordinatesValidator::checkX);
         band.coordinates.y = genericRead("y", Integer::parseInt, CoordinatesValidator::checkY);
         band.numberOfParticipants = genericRead("number of participants", Long::parseLong, MusicBandValidator::checkNumberOfParticipants);
-        band.genre = genericRead("music genre. Options: " + Arrays.toString(MusicGenre.values()), ModelReader::toGenre, (String) -> true);
-        System.out.println("Enter yes if you want to fill date about front man");
-        if (sc.nextLine().equals("yes")) {
-            band.frontMan = new Person();
-            band.frontMan.name = genericRead("name", String::new, FrontManValidator::checkName);
-            band.frontMan.height = genericRead("height", Double::parseDouble, FrontManValidator::checkHeight);
-            band.frontMan.weight = genericRead("weight", Long::parseLong, FrontManValidator::checkWeight);
-            band.frontMan.eyeColor  = genericRead("eye color. Options: " + Arrays.toString(Color.values()), ModelReader::toEyeColor, (String) -> true);
-            System.out.println("Enter yes if you want to fill date about location");
-            if (sc.nextLine().equals("yes")) {
-                band.frontMan.location = new Location();
-                band.frontMan.location.x = genericRead("x", Float::parseFloat, LocationValidator::checkX);
-                band.frontMan.location.y = genericRead("y", Float::parseFloat, LocationValidator::checkY);
-                band.frontMan.location.name = genericRead("name", String::new, LocationValidator::checkName);
-            }
-        }
+        band.genre = genericRead("music genre. Options: " + Arrays.toString(MusicGenre.values()), ModelReader::toGenre, Objects::nonNull);
+        band.frontMan = new Person();
+        band.frontMan.name = genericRead("name", String::new, FrontManValidator::checkName);
+        band.frontMan.height = genericRead("height", Double::parseDouble, FrontManValidator::checkHeight);
+        band.frontMan.weight = genericRead("weight", Long::parseLong, FrontManValidator::checkWeight);
+        band.frontMan.eyeColor = genericRead("eye color. Options: " + Arrays.toString(Color.values()), ModelReader::toEyeColor, Objects::nonNull);
+        band.frontMan.location = new Location();
+        band.frontMan.location.x = genericRead("x", Float::parseFloat, LocationValidator::checkX);
+        band.frontMan.location.y = genericRead("y", Float::parseFloat, LocationValidator::checkY);
+        band.frontMan.location.name = genericRead("name", String::new, LocationValidator::checkName);
         return band;
     }
 

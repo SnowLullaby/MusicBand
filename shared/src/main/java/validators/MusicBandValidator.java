@@ -13,7 +13,7 @@ public class MusicBandValidator {
     }
 
     public static boolean checkFrontMan(Person frontMan) {
-        return frontMan == null || FrontManValidator.checkFrontMan(frontMan);
+        return frontMan != null && FrontManValidator.checkFrontMan(frontMan);
     }
 
     public static boolean checkGenre(String genre) {
@@ -26,7 +26,7 @@ public class MusicBandValidator {
     }
 
     public static boolean checkNumberOfParticipants(Long numberOfParticipants) {
-        return numberOfParticipants == null || numberOfParticipants > 0;
+        return numberOfParticipants != null && numberOfParticipants > 0;
     }
 
     public static boolean checkCreationDate(String creationDate) {

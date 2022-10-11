@@ -10,7 +10,7 @@ public class LocationValidator {
     }
 
     public static boolean checkName(String name) {
-        return true;
+        return name != null && !name.equals("");
     }
 
     public static boolean checkY(Float y) {

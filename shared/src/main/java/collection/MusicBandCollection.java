@@ -1,9 +1,7 @@
 package collection;
 
-import models.ISaveLoad;
 import models.MusicBand;
 import models.Person;
-import validators.MusicBandValidator;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -14,89 +12,20 @@ import java.util.*;
 public class MusicBandCollection {
     private static final MusicBandCollection instance = new MusicBandCollection();
     private final LocalDateTime creationTime = LocalDateTime.now();
-    private ISaveLoad saveLoad;
-    private Vector<MusicBand> collection;
-    private Long maxID;
+    private final List<MusicBand> collection;
+    private final PersistanceManager persistanceManager;
+
+    private MusicBandCollection() {
+        this.persistanceManager = DbPersistenceManager.INSTANCE;
+        this.collection = persistanceManager.getBands();
+    }
 
     /**
      * Return instance of MusicBandCollection
      * @return instance
      */
     public static MusicBandCollection getInstance() {
-        if (instance.collection == null) throw new RuntimeException("Collection not initialized");
         return instance;
-    }
-
-    /**
-     * Create instance of MusicBandCollection
-     * @param saveLoad - instance of ISAveLoad class
-     * @see ISaveLoad
-     */
-    public static void initInstance(ISaveLoad saveLoad) {
-        fillingInstance(saveLoad);
-        checkID();
-        checkUniqueID();
-        checkCorrectMaxID();
-    }
-
-    /**
-     * Filling field of instance
-     * @param saveLoad - instance of ISAveLoad class
-     */
-    private static void fillingInstance(ISaveLoad saveLoad) {
-        instance.saveLoad = saveLoad;
-        var collAndID = instance.saveLoad.parse();
-        instance.collection = collAndID.getKey();
-        instance.maxID = collAndID.getValue();
-        instance.defaultSortByID();
-    }
-
-    /**
-     * Checking maxId existence ib file
-     */
-    private static void checkID() {
-        if (instance.maxID == null) {
-            System.out.println("No max ID in the file");
-            System.exit(0);
-        }
-    }
-
-    /**
-     * Checking that all ID's in collection are unique
-     */
-    private static void checkUniqueID() {
-        var differentIDs = new Vector<Long>();
-        for (MusicBand band: instance.collection) {
-            checkMusicBands(band);
-            if (differentIDs.contains(band.id)) {
-                System.out.println("Check uniqueness ID in collection!");
-                System.exit(0);
-
-            }
-            differentIDs.add(band.id);
-        }
-    }
-
-    private static void checkMusicBands(MusicBand band) {
-        if (!MusicBandValidator.checkMusicBand(band) ) {
-            System.out.println("Incorrect format in original XML-file");
-            System.exit(0);
-        }
-    }
-
-    private static void checkCorrectMaxID() {
-        if (instance.findRealMaxID() != instance.maxID){
-            instance.maxID = instance.findRealMaxID();
-            System.out.printf("Incorrect max element's ID in the file. Recommended to rewrite max ID to %d or use save command!\n", instance.maxID);
-        }
-    }
-
-    public long findRealMaxID() {
-        long realMaxID = 0;
-        for (MusicBand band: collection) {
-            realMaxID = (band.id > realMaxID) ? band.id : realMaxID;
-        }
-        return realMaxID;
     }
 
     public int getSize() {
@@ -112,30 +41,27 @@ public class MusicBandCollection {
     }
 
     public void save() {
-        var collAndID = new AbstractMap.SimpleEntry<Vector<MusicBand>, Long> (collection, maxID);
-        saveLoad.save(collAndID);
+        // all bands are already saved to db
     }
 
-    public void addElement(MusicBand band) {
-        collection.add(band);
-        maxID = findRealMaxID();
-    }
-
-    public MusicBand getElementByID(Long id) {
-        for (MusicBand band : collection){
-            if (Objects.equals(band.id, id))
-                return band;
+    public boolean addElement(MusicBand band) {
+        Optional<Long> maybeId = persistanceManager.addBand(band);
+        if (maybeId.isPresent()) {
+            band.id = maybeId.get();
+            collection.add(band);
+            return true;
+        } else {
+            return false;
         }
-        return null;
     }
 
     public void removeAt(int index) throws ArrayIndexOutOfBoundsException{
         collection.remove(index);
     }
 
-    public void removeByID(Long id) {
+    public boolean removeByID(Long id) {
         collection.removeIf(band -> Objects.equals(band.id, id));
-        maxID = findRealMaxID();
+        return persistanceManager.removeBandById(id);
     }
 
     public void removeAll() {
@@ -199,5 +125,3 @@ public class MusicBandCollection {
         return str;
     }
 }
-
-
