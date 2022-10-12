@@ -8,19 +8,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ForkJoinPool;
 
 public class Server {
     private final MessageProcessor messageProcessor;
     private Socket clientSocket; //сокет для общения
     private ServerSocket server; // серверсокет
 
-    private MusicBandCollection collectionManager;
+    private final ForkJoinPool pool;
 
     private final int port;
 
     public Server(int port) {
         this.port = port;
-        this.collectionManager = MusicBandCollection.getInstance();
+        this.pool = new ForkJoinPool(4);
         messageProcessor = new MessageProcessor(DbPersistenceManager.INSTANCE);
     }
 
@@ -33,17 +34,8 @@ public class Server {
     private void serverLoop() throws IOException {
         while (true) {
             clientSocket = server.accept();
-            try {
-                while (true) {
-                    ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
-                    var requestMessage = (RequestMessage) in.readObject();
-                    ResponseMessage result = messageProcessor.process(requestMessage);
-                    ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
-                    out.writeObject(result);
-                }
-            } catch (IOException | ClassNotFoundException e){
-                clientSocket.close();
-            }
+            RequestRunner requestRunner = new RequestRunner(clientSocket, messageProcessor);
+            pool.execute(requestRunner);
         }
     }
 

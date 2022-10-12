@@ -5,6 +5,7 @@ import models.Person;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Manages collection contains music bands
@@ -12,12 +13,12 @@ import java.util.*;
 public class MusicBandCollection {
     private static final MusicBandCollection instance = new MusicBandCollection();
     private final LocalDateTime creationTime = LocalDateTime.now();
-    private final List<MusicBand> collection;
+    private final CopyOnWriteArrayList<MusicBand> collection;
     private final PersistanceManager persistanceManager;
 
     private MusicBandCollection() {
         this.persistanceManager = DbPersistenceManager.INSTANCE;
-        this.collection = persistanceManager.getBands();
+        this.collection = new CopyOnWriteArrayList<>(persistanceManager.getBands());
     }
 
     /**

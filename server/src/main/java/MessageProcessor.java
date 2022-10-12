@@ -36,7 +36,8 @@ public class MessageProcessor {
 
     private boolean isAuthenticated(User user) {
         if (user == null) return false;
-        return persistenceManager.getUser(user.username()).filter((dbUser) -> Objects.equals(dbUser.password(), user.password())).isPresent();
+        String encryptedPass = Encryption.encrypt(user.password());
+        return persistenceManager.getUser(user.username()).filter((dbUser) -> Objects.equals(dbUser.password(), encryptedPass)).isPresent();
     }
 
     private ExecutionResult processAuth(CommandInfo commandInfo) {
@@ -51,7 +52,8 @@ public class MessageProcessor {
             if (isAuth && (Objects.equals(commandInfo.name(), "login"))) {
                 isOk = true;
             } else if (!isAuth && Objects.equals(commandInfo.name(), "register")) {
-                persistenceManager.addUser(user);
+                String encryptedPass = Encryption.encrypt(password);
+                persistenceManager.addUser(new User(username, encryptedPass, -1));
                 isOk = true;
             } else {
                 isOk = false;
