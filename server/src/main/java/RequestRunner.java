@@ -17,6 +17,7 @@ public class RequestRunner implements Runnable {
 
     @Override
     public void run() {
+        // MrzF,2600
         while (true) {
             try {
                 ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
@@ -25,7 +26,7 @@ public class RequestRunner implements Runnable {
                 ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
                 out.writeObject(result);
             } catch (IOException | ClassNotFoundException e) {
-                System.err.println("Error: " + e.getMessage());
+                System.out.println("Client disconnected");
             }
         }
     }

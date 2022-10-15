@@ -1,7 +1,9 @@
 package collection;
 
+import communication.User;
 import models.MusicBand;
 import models.Person;
+import org.glassfish.jaxb.runtime.v2.runtime.output.StAXExStreamWriterOutput;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -60,9 +62,12 @@ public class MusicBandCollection {
         collection.remove(index);
     }
 
-    public boolean removeByID(Long id) {
-        collection.removeIf(band -> Objects.equals(band.id, id));
-        return persistanceManager.removeBandById(id);
+    public boolean removeByID(Long id, User user) {
+        if (collection.stream().filter(musicBand -> Objects.equals(musicBand.id, id)).anyMatch(band -> Objects.equals(band.userName, user.username()))) {
+            collection.removeIf(band_ -> Objects.equals(band_.id, id));
+            return persistanceManager.removeBandById(id);
+        }
+        return false;
     }
 
     public void removeAll() {

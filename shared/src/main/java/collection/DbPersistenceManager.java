@@ -80,6 +80,7 @@ public class DbPersistenceManager implements PersistanceManager {
             statement.executeUpdate();
             System.out.println("Marine with id " + id + "  deleted successfully");
         } catch (SQLException e) {
+            System.err.println(e.getMessage());
             return false;
         }
         return true;
@@ -87,7 +88,7 @@ public class DbPersistenceManager implements PersistanceManager {
 
     @Override
     public Optional<Long> addBand(MusicBand musicBand) {
-        var sql = "INSERT INTO music_bands VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        var sql = "INSERT INTO music_bands VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement statement = connector.getStatement(sql);
             statement.setString(1, musicBand.name);
@@ -104,6 +105,8 @@ public class DbPersistenceManager implements PersistanceManager {
             statement.setFloat(11, musicBand.frontMan.location.x);
             statement.setFloat(12, musicBand.frontMan.location.y);
             statement.setString(13, musicBand.frontMan.location.name);
+
+            statement.setString(14, musicBand.userName);
 
             if (statement.executeUpdate() != 0) {
                 System.out.println("Band added to db!");
@@ -141,6 +144,8 @@ public class DbPersistenceManager implements PersistanceManager {
         location.name = rs.getString("person_location_name");
         person.location = location;
         res.frontMan = person;
+
+        res.userName = rs.getString("userName");
         return res;
     }
 }

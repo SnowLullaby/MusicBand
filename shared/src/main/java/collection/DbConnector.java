@@ -4,9 +4,9 @@ import java.sql.*;
 
 public class DbConnector {
     private Connection connection;
-    private static final String URL = "jdbc:postgresql://127.0.0.1:5432/postgres";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "postgres";
+    private static final String URL = "jdbc:postgresql://127.0.0.1:5432/studs";
+    private static final String USER = "s336423";
+    private static final String PASSWORD = "85pUuddUFa3sac42";
 
     public DbConnector() {
         try {

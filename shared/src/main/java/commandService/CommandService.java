@@ -1,6 +1,7 @@
 package commandService;
 
 import commands.*;
+import communication.User;
 import models.MusicBand;
 
 import java.util.List;
@@ -9,9 +10,9 @@ public class CommandService {
     public static final CommandService INSTANCE = new CommandService();
     private CommandService() {};
 
-    public Command getCommand(String name, List<String> args, MusicBand musicBand) {
+    public Command getCommand(String name, List<String> args, MusicBand musicBand, User user) {
         try {
-            return searchCommand(name, args, musicBand);
+            return searchCommand(name, args, musicBand, user);
         } catch (NumberFormatException | IndexOutOfBoundsException | NullPointerException e) {System.out.println("Incorrect arguments");
             return null;
         } catch (NoCommandError e) {
@@ -20,16 +21,16 @@ public class CommandService {
         }
     }
 
-    private Command searchCommand(String name, List<String> args, MusicBand musicBand) throws NoCommandError, NumberFormatException {
+    private Command searchCommand(String name, List<String> args, MusicBand musicBand, User user) throws NoCommandError, NumberFormatException {
         if (CommandsDesc.HELP.name.equals(name)) return new HelpCommand(CommandsDesc.getAllCommands());
         if (CommandsDesc.INFO.name.equals(name)) return new InfoCommand();
         if (CommandsDesc.SHOW.name.equals(name)) return new ShowCommand();
-        if (CommandsDesc.ADD.name.equals(name)) return new AddCommand(musicBand);
-        if (CommandsDesc.UPDATE.name.equals(name)) return new UpdateIdCommand(Integer.parseInt(args.get(0)), musicBand);
-        if (CommandsDesc.REMOVE_BY_ID.name.equals(name)) return new RemoveByIdCommand(Integer.parseInt(args.get(0)));
+        if (CommandsDesc.ADD.name.equals(name)) return new AddCommand(musicBand, user);
+        if (CommandsDesc.UPDATE.name.equals(name)) return new UpdateIdCommand(Integer.parseInt(args.get(0)), musicBand, user);
+        if (CommandsDesc.REMOVE_BY_ID.name.equals(name)) return new RemoveByIdCommand(Integer.parseInt(args.get(0)), user);
         if (CommandsDesc.CLEAR.name.equals(name)) return new ClearCommand();
         if (CommandsDesc.SAVE.name.equals(name)) return new SaveCommand();
-        if (CommandsDesc.EXECUTE_SCRIPT.name.equals(name)) return new ExecuteScriptCommand(args.get(0));
+        if (CommandsDesc.EXECUTE_SCRIPT.name.equals(name)) return new ExecuteScriptCommand(args.get(0), user);
         if (CommandsDesc.EXIT.name.equals(name)) return new ExitCommand();
         if (CommandsDesc.REMOVE_AT.name.equals(name)) return new RemoveAtCommand(Integer.parseInt(args.get(0)));
         if (CommandsDesc.ADD_IF_MIN.name.equals(name)) return new AddIfMinCommand(musicBand);

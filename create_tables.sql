@@ -13,7 +13,8 @@ CREATE TABLE music_bands
     person_eyecolor        VARCHAR(255),
     person_location_x      FLOAT,
     person_location_y      FLOAT,
-    person_location_name   VARCHAR(255)
+    person_location_name   VARCHAR(255),
+    userName               VARCHAR(255)
 );
 
 CREATE TABLE users

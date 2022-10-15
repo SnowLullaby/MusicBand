@@ -18,6 +18,7 @@ public class MusicBand implements Serializable {
     public Long numberOfParticipants; //may be null or > 0
     public MusicGenre genre; //not null
     public Person frontMan;
+    public String userName;
 
     public String getCreationDate(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
@@ -27,7 +28,7 @@ public class MusicBand implements Serializable {
     @Override
     public String toString(){
         return ("[" + id + "; " + name + "; " + coordinates  + "; " + getCreationDate() + "; " +
-        numberOfParticipants + "; " + genre + "; " + frontMan + "]");
+        numberOfParticipants + "; " + genre + "; " + frontMan + "; " + userName +"]");
     }
 
     public void setCreationDateAsDate(LocalDate now) {

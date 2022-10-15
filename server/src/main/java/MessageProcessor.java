@@ -28,7 +28,7 @@ public class MessageProcessor {
         } else if (!isAuthenticated(message.user())) {
             result = new ExecutionResult("Unauthorised. Enter login or register", false);
         } else {
-            result = executeCommand(commandInfo);
+            result = executeCommand(commandInfo, message.user());
         }
         System.out.println("Result: " + result);
         return new ResponseMessage(result);
@@ -64,8 +64,8 @@ public class MessageProcessor {
         return isOk ? new ExecutionResult("Authenticated successful!", true): new ExecutionResult(fail, false);
     }
 
-    private ExecutionResult executeCommand(CommandInfo commandInfo) {
-        Command command = CommandService.INSTANCE.getCommand(commandInfo.name(), commandInfo.args(), (MusicBand) commandInfo.extendedData());
+    private ExecutionResult executeCommand(CommandInfo commandInfo, User user) {
+        Command command = CommandService.INSTANCE.getCommand(commandInfo.name(), commandInfo.args(), (MusicBand) commandInfo.extendedData(), user);
         if (command == null) {
             return new ExecutionResult("Undefined command", false);
         } else {
