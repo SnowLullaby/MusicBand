@@ -7,6 +7,7 @@ import models.MusicBand;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class CommandExecutor {
     private static final List<String> extendedCommands = List.of(new String[]{"add", "addIdMin", "addIfMax"});
@@ -25,6 +26,8 @@ public class CommandExecutor {
             setUser(args);
         } else if (extendedCommands.contains(commandName)) {
             data = modelReader.readModel();
+        } else if (Objects.equals(commandName, "exit")) {
+            new ExitCommand().execute();
         }
         processRemoteCommand(new CommandInfo(commandName, args, data));
     }

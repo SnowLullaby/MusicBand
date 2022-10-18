@@ -17,7 +17,6 @@ public class RequestRunner implements Runnable {
 
     @Override
     public void run() {
-        // MrzF,2600
         while (true) {
             try {
                 ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
